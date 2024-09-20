@@ -26,7 +26,7 @@ void setup()
   pinMode(ledVerde, OUTPUT);
   pinMode(ledVermelho, OUTPUT);
   pinMode(bzz, OUTPUT);
-  // Print a message to the LCD.
+   //Print a message to the LCD.
   lcd.print("Aperte o botao para iniciar!");
 }
 
@@ -78,8 +78,183 @@ void loop()
     if (contRodadas >= rodadas)
       vitoria();
   }
+	lcd.print("Albertini trabalha?");
+  	delay(2000);
+  	lcd.clear();
+  	delay(500);
+ 	
+  while(true){
+  	input = retornaBotao();
+  	
+  if(input == 0){
+    lcd.print("Erro");
+    delay(2000);
+    lcd.clear();
+    quit();
+  }
+  else if(input == 1){
+    lcd.print("Acerto");
+    delay(2000);
+    lcd.clear();
+    break;
+  }    
+ }
+  	lcd.print("Robertinho eh autista?");
+  	delay(2000);
+  	lcd.clear();
+  	delay(500);
+  	
+  while(true){
+    input = retornaBotao();
+    
+    if(input == 0){
+      lcd.print("Acerto");
+      delay(2000);
+      lcd.clear();
+      break;
+    }
+    else if(input == 1){
+      lcd.print("Erro");
+      delay(2000);
+      lcd.clear();
+      quit();
+    }
+  }
+  	
+  	lcd.print("Finatti eh escravo?");
+  	delay(2000);
+  	lcd.clear();
+  	delay(500);
+  	
+  while(true){
+  	input = retornaBotao();
+    
+    if(input == 0){
+      lcd.print("Acerto");
+      delay(2000);
+      lcd.clear();
+      break;
+    }
+    else if(input == 1){
+      lcd.print("Erro");
+      delay(2000);
+      lcd.clear();
+      quit();
+    }
+  }
+  	
+  	lcd.print("Kawan eh pobre?");
+  	delay(2000);
+  	lcd.clear();
+  	delay(500);
+  
+  while(true){
+    input = retornaBotao();
+    
+    if(input == 0){
+      lcd.print("Acerto");
+      delay(2000);
+      lcd.clear();
+      break;
+    }
+    else if(input == 1){
+      lcd.print("Erro");
+      delay(2000);
+      lcd.clear();
+      quit();
+    }
+  }
+  
+  	lcd.print("Givas eh gado?");
+  	delay(2000);
+  	lcd.clear();
+  	delay(500);
+  
+  while(true){
+    input = retornaBotao();
+    
+    if(input == 0){
+      lcd.print("Acerto");
+      delay(2000);
+      lcd.clear();
+      break;
+    }
+    else if(input == 1){
+      lcd.print("Erro");
+      delay(2000);
+      lcd.clear();
+      quit();
+    }
+  }
+  	lcd.print("Tiago sabe dar commit?");
+    delay(2000);
+  	lcd.clear();
+  	delay(500);
+  	
+  while(true){
+    input = retornaBotao();
+    
+    if(input == 0){
+      lcd.print("Erro");
+      delay(2000);
+      lcd.clear();
+      quit();
+    }
+    else if(input == 1){
+      lcd.print("Acerto");
+      delay(2000);
+      lcd.clear();
+      break;
+    }
+  }
+  	lcd.print("Pedro eh corno?");
+  	delay(2000);
+  	lcd.clear();
+  	delay(500);
+  
+  while(true){
+    input = retornaBotao();
+    
+    if(input == 0){
+      lcd.print("Erro");
+      delay(2000);
+      lcd.clear();
+      quit();
+    }
+    else if(input == 1){
+      lcd.print("Acerto");
+      delay(2000);
+      lcd.clear();
+      break;
+    }
+  }
+  	lcd.print("PERGUNTA FINAL");
+  	delay(3000);
+  	lcd.clear();
+  	delay(500);
+  	lcd.print("Albertini eh gay?");
+  	delay(2000);
+  	lcd.clear();
+  	delay(500);
+  
+  while(true){
+    input = retornaBotao();
+    
+    if(input == 0){
+      lcd.print("Acerto");
+      delay(2000);
+      lcd.clear();
+      vitoria();
+    }
+    else if(input == 1){
+      lcd.print("Erro");
+      delay(2000);
+      lcd.clear();
+      quit();
+    }
+  }
 }
-
+  
 int retornaBotao(){
   if (digitalRead(btVerde) == LOW)
     return 0;
@@ -100,6 +275,8 @@ void quit(){
   jogoIniciado = 0;
   lcd.setCursor(0,0);
   lcd.print("Voce desistiu do jogo!");
+  delay(2000);
+  lcd.clear();
 }
 
 void iniSeq(){
