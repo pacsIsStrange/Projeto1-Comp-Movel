@@ -113,28 +113,29 @@ void loop()
   	delay(2000);
   	lcd.clear();
   	int index = random(0, 8);
+  	int vidas = 1;
   	lcd.print(listaPerguntas[index].pergunta);
   	delay(4000);
   	lcd.clear();
   	delay(500);
   	lcd.print("Sim ou Nao?");
-  	unsigned long startTime = millis();
   	
+  	unsigned long startTime1 = millis();
   while(true){
-    
+  
   unsigned long currentTime = millis(); 
     
-  if (currentTime - startTime >= 7500){
+  if (currentTime - startTime1 >= 7500){
       tone(bzz, 136);
   }
   
-  if (currentTime - startTime >= 10000){
+  if (currentTime - startTime1 >= 10000){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
         delay(2000);
         lcd.clear();
-        derrota();
+        vidas--;
     	break;
   }
 
@@ -164,20 +165,34 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
-  	
+  	lcd.print("Sim ou Nao?");
+  	unsigned long startTime2 = millis();
+
   while(true){
+    
     unsigned long currentTime = millis(); 
-    if (currentTime - startTime >= 7500){
+
+    if (currentTime - startTime2 >= 7500){
       tone(bzz, 136);
   }
   
-  if (currentTime - startTime >= 10000){
+  if (currentTime - startTime2 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
         delay(2000);
         lcd.clear();
         derrota();
+    	break;
+  }
+  
+  if (currentTime - startTime2 >= 10000 && vidas == 1){
+    	lcd.clear();
+    	noTone(bzz);
+        lcd.print("Tempo Esgotado");
+        delay(2000);
+        lcd.clear();
+        vidas--;
     	break;
   }
      
@@ -207,20 +222,33 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
-  	
+    lcd.print("Sim ou Nao?");
+  	unsigned long startTime3 = millis();
+  
   while(true){
     unsigned long currentTime = millis(); 
-    if (currentTime - startTime >= 7500){
+
+    if (currentTime - startTime3 >= 7500){
       tone(bzz, 136);
   }
   
-  if (currentTime - startTime >= 10000){
+  if (currentTime - startTime3 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
         delay(2000);
         lcd.clear();
         derrota();
+    	break;
+  }
+  
+  if (currentTime - startTime3 >= 10000 && vidas == 1){
+    	lcd.clear();
+    	noTone(bzz);
+        lcd.print("Tempo Esgotado");
+        delay(2000);
+        lcd.clear();
+        vidas--;
     	break;
   }
     
@@ -250,14 +278,17 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
+ 	lcd.print("Sim ou Nao?");
+  	unsigned long startTime4 = millis();
   
   while(true){
     unsigned long currentTime = millis(); 
-    if (currentTime - startTime >= 7500){
+
+    if (currentTime - startTime4 >= 7500){
       tone(bzz, 136);
   }
   
-  if (currentTime - startTime >= 10000){
+  if (currentTime - startTime4 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
@@ -266,10 +297,21 @@ void loop()
         derrota();
     	break;
   }
+  
+  if (currentTime - startTime4 >= 10000 && vidas == 1){
+    	lcd.clear();
+    	noTone(bzz);
+        lcd.print("Tempo Esgotado");
+        delay(2000);
+        lcd.clear();
+        vidas--;
+    	break;
+  }
    
     input = retornaBotao();
 
     if(input == respostas[index+3]){
+      lcd.clear();
       lcd.print("Acerto");
       tone(bzz, 262);
       delay(2000);
@@ -278,6 +320,7 @@ void loop()
       break;
     }
     else if(input != respostas[index+3] && input != 3){
+      lcd.clear();
       lcd.print("Erro");
       tone(bzz, 136);
       delay(2000);
@@ -291,14 +334,16 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
+  	lcd.print("Sim ou Nao?");
+  	unsigned long startTime5 = millis();
   
   while(true){
-    unsigned long currentTime = millis();
-    if (currentTime - startTime >= 7500){
+  unsigned long currentTime = millis(); 
+    if (currentTime - startTime5 >= 7500){
       tone(bzz, 136);
   }
   
-  if (currentTime - startTime >= 10000){
+  if (currentTime - startTime5 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
@@ -307,11 +352,22 @@ void loop()
         derrota();
     	break;
   }
+  
+  if (currentTime - startTime5 >= 10000 && vidas == 1){
+    	lcd.clear();
+    	noTone(bzz);
+        lcd.print("Tempo Esgotado");
+        delay(2000);
+        lcd.clear();
+        vidas--;
+    	break;
+  }
    
     
     input = retornaBotao();
 
     if(input == respostas[index+4]){
+      lcd.clear();
       lcd.print("Acerto");
       tone(bzz, 262);
       delay(2000);
@@ -320,6 +376,7 @@ void loop()
       break;
     }
     else if (input!= respostas[index+4] && input != 3){
+      lcd.clear();
       lcd.print("Erro");
       tone(bzz, 136);
       delay(2000);
@@ -332,14 +389,16 @@ void loop()
     delay(4000);
   	lcd.clear();
   	delay(500);
+  	lcd.print("Sim ou Nao?");
+  	unsigned long startTime6 = millis();
   	
   while(true){
-    unsigned long currentTime = millis(); 
-    if (currentTime - startTime >= 7500){
+   unsigned long currentTime = millis(); 
+    if (currentTime - startTime6 >= 7500){
       tone(bzz, 136);
   }
   
-  if (currentTime - startTime >= 10000){
+  if (currentTime - startTime6 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
@@ -348,10 +407,21 @@ void loop()
         derrota();
     	break;
   }
+  
+  if (currentTime - startTime6 >= 10000 && vidas == 1){
+    	lcd.clear();
+    	noTone(bzz);
+        lcd.print("Tempo Esgotado");
+        delay(2000);
+        lcd.clear();
+        vidas--;
+    	break;
+  }
    
     input = retornaBotao();
 
     if(input != respostas[index+5] && input != 3){
+      lcd.clear();
       lcd.print("Erro");
       tone(bzz, 136);
       delay(2000);
@@ -360,6 +430,7 @@ void loop()
       derrota();
     }
     else if(input == respostas[index+5]){
+      lcd.clear();
       lcd.print("Acerto");
       tone(bzz, 262);
       delay(2000);
@@ -372,14 +443,16 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
+  	lcd.print("Sim ou Nao?");
+  	unsigned long startTime7 = millis();
   
   while(true){
     unsigned long currentTime = millis(); 
-    if (currentTime - startTime >= 7500){
+    if (currentTime - startTime7 >= 7500){
       tone(bzz, 136);
   }
   
-  if (currentTime - startTime >= 10000){
+  if (currentTime - startTime7 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
@@ -388,10 +461,21 @@ void loop()
         derrota();
     	break;
   }
+  
+  if (currentTime - startTime7 >= 10000 && vidas == 1){
+    	lcd.clear();
+    	noTone(bzz);
+        lcd.print("Tempo Esgotado");
+        delay(2000);
+        lcd.clear();
+        vidas--;
+    	break;
+  }
    
     input = retornaBotao();
     
     if(input != respostas[index+6] && input != 3){
+      lcd.clear();
       lcd.print("Erro");
       tone(bzz, 136);
       delay(2000);
@@ -400,6 +484,7 @@ void loop()
       derrota();
     }
     else if(input == respostas[index+6]){
+      lcd.clear();
       lcd.print("Acerto");
       tone(bzz, 262);
 	  delay(2000);
@@ -416,14 +501,16 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
+  	lcd.print("Sim ou Nao?");
+  	unsigned long startTime8 = millis();
   
   while(true){
     unsigned long currentTime = millis(); 
-    if (currentTime - startTime >= 7500){
+    if (currentTime - startTime8 >= 7500){
       tone(bzz, 136);
   }
   
-  if (currentTime - startTime >= 10000){
+  if (currentTime - startTime8 >= 10000){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
@@ -436,6 +523,7 @@ void loop()
     input = retornaBotao();
     
     if(input == 0){
+      lcd.clear();
       lcd.print("Acerto");
       tone(bzz, 262);
       delay(2000);
@@ -444,6 +532,7 @@ void loop()
       vitoria();
     }
     else if(input == 1){
+      lcd.clear();
       lcd.print("Erro");
       tone(bzz, 136);
       delay(2000);
