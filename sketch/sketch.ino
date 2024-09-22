@@ -32,7 +32,8 @@ int erro = 136;
 int acerto = 262;
 int tempo_quase_esgotado = 235;
 int tempo_esgotado = 200;
-  void setup()
+int quit_buzzer = 215;
+ void setup()
 {
   //int respostas[14] = {1,0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1};
   listaPerguntas[0].pergunta = "33 + 77 = 100?";
@@ -154,7 +155,7 @@ void loop()
       digitalWrite(8, HIGH);
     }
 
-  if(input != respostas[index] && input != 3){
+  if(input != respostas[index] && input != 3 && input != 2){
     lcd.clear();
     lcd.print("Erro");
     tone(bzz, erro);
@@ -176,6 +177,10 @@ void loop()
     lcd.clear();
     break;
   }
+    else if(input == 2){
+      quit();
+      RESET;
+    }
  }
   	lcd.print(listaPerguntas[index+1].pergunta);
   	delay(4000);
@@ -236,7 +241,7 @@ void loop()
       lcd.clear();
       break;
     }
-    else if(input != respostas[index+1] && input != 3){
+    else if(input != respostas[index+1] && input != 3 && input != 2){
       lcd.clear();
       lcd.print("Erro");
       tone(bzz, erro);
@@ -246,6 +251,10 @@ void loop()
       noTone(bzz);
       lcd.clear();
       derrota();
+    }
+    else if(input == 2){
+      quit();
+      RESET;
     }
   }
   	
@@ -307,7 +316,7 @@ void loop()
       lcd.clear();
       break;
     }
-    else if(input != respostas[index+2] && input != 3){
+    else if(input != respostas[index+2] && input != 3 && input != 2){
       lcd.clear();
       lcd.print("Erro");
       tone(bzz, erro);
@@ -317,6 +326,10 @@ void loop()
       noTone(bzz);
       lcd.clear();
       derrota();
+    }
+    else if(input == 2){
+      quit();
+      RESET;
     }
   }
   	
@@ -378,7 +391,7 @@ void loop()
       lcd.clear();
       break;
     }
-    else if(input != respostas[index+3] && input != 3){
+    else if(input != respostas[index+3] && input != 3 && input != 2){
       lcd.clear();
       lcd.print("Erro");
       tone(bzz, erro);
@@ -388,6 +401,10 @@ void loop()
       noTone(bzz);
       lcd.clear();
       derrota();
+    }
+    else if(input == 2){
+      quit();
+      RESET;
     }
   }
   
@@ -449,7 +466,7 @@ void loop()
       lcd.clear();
       break;
     }
-    else if (input!= respostas[index+4] && input != 3){
+    else if (input!= respostas[index+4] && input != 3 && input != 2){
       lcd.clear();
       lcd.print("Erro");
       tone(bzz, erro);
@@ -459,6 +476,10 @@ void loop()
       noTone(bzz);
       lcd.clear();
       derrota();
+    }
+    else if(input == 2){
+      quit();
+      RESET;
     }
   }
   	lcd.print(listaPerguntas[index+5].pergunta);
@@ -507,7 +528,7 @@ void loop()
       digitalWrite(8, HIGH);
     }
 
-    if(input != respostas[index+5] && input != 3){
+    if(input != respostas[index+5] && input != 3 && input != 2){
       lcd.clear();
       lcd.print("Erro");
       tone(bzz, erro);
@@ -528,6 +549,10 @@ void loop()
       noTone(bzz);
       lcd.clear();
       break;
+    }
+    else if(input == 2){
+      quit();
+      RESET;
     }
   }
   	lcd.print(listaPerguntas[index+6].pergunta);
@@ -598,6 +623,10 @@ void loop()
       lcd.clear();
       break;
     }
+    else if(input == 2){
+      quit();
+      RESET;
+    }
   }
   	lcd.print("PERGUNTA FINAL");
   	delay(3000);
@@ -659,6 +688,10 @@ void loop()
       lcd.clear();
       derrota();
     }
+    else if(input == 2){
+      quit();
+      RESET;
+    }
   }
 }
   
@@ -689,9 +722,10 @@ void derrota(){
 void quit(){
   jogoIniciado = 0;
   lcd.setCursor(0,0);
-  lcd.print("Voce desistiu do jogo!");
-  tone(bzz, 200);
+  lcd.print("Voce desistiu!");
+  tone(bzz, quit_buzzer);
   delay(2000);
+  noTone(bzz);
   lcd.clear();
 }
 
