@@ -168,13 +168,17 @@ void loop()
   }
   else if(input == respostas[index]){
     lcd.clear();
-    lcd.print("Acerto");
+    lcd.print("Acerto!");
     tone(bzz, acerto);
     delay(2000);
     digitalWrite(9, LOW);
     digitalWrite(8, LOW);
     noTone(bzz);
     lcd.clear();
+    lcd.print("Restam 6");
+    delay(2000);
+    lcd.clear();
+    delay(1000);
     break;
   }
     else if(input == 2){
@@ -239,6 +243,10 @@ void loop()
       digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
+      lcd.print("Restam 5");
+      delay(2000);
+      lcd.clear();
+      delay(1000);
       break;
     }
     else if(input != respostas[index+1] && input != 3 && input != 2){
@@ -314,6 +322,10 @@ void loop()
       digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
+      lcd.print("Restam 4");
+      delay(2000);
+      lcd.clear();
+      delay(1000);
       break;
     }
     else if(input != respostas[index+2] && input != 3 && input != 2){
@@ -389,6 +401,10 @@ void loop()
       digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
+      lcd.print("Restam 3");
+      delay(2000);
+      lcd.clear();
+      delay(1000);
       break;
     }
     else if(input != respostas[index+3] && input != 3 && input != 2){
@@ -464,6 +480,10 @@ void loop()
       digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
+      lcd.print("Restam 2");
+      delay(2000);
+      lcd.clear();
+      delay(1000);
       break;
     }
     else if (input!= respostas[index+4] && input != 3 && input != 2){
@@ -548,6 +568,10 @@ void loop()
       digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
+      lcd.print("Resta 1");
+      delay(2000);
+      lcd.clear();
+      delay(1000);
       break;
     }
     else if(input == 2){
