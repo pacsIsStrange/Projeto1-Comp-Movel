@@ -28,7 +28,11 @@ int tamanho_array = 14;
 int caracter = 50;
 Perguntas listaPerguntas[15];
 int respostas[14] = {1,0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1};
-void setup()
+int erro = 136;
+int acerto = 262;
+int tempo_quase_esgotado = 235;
+int tempo_esgotado = 200;
+  void setup()
 {
   //int respostas[14] = {1,0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1};
   listaPerguntas[0].pergunta = "33 + 77 = 100?";
@@ -91,12 +95,12 @@ void loop()
           digitalWrite(arrLed[input], HIGH);
 
           if(input == sequencia[i]){
-            tone(bzz, 262);
+            tone(bzz, acerto);
             lcd.setCursor(0, 0);
             lcd.print("Acerto");
             break;
           } else{
-            tone(bzz, 136);
+            tone(bzz, erro);
             lcd.setCursor(0, 0);
             lcd.print("Erro!");
             
@@ -126,27 +130,37 @@ void loop()
   unsigned long currentTime = millis(); 
     
   if (currentTime - startTime1 >= 7500){
-      tone(bzz, 136);
+      tone(bzz, tempo_quase_esgotado);
   }
   
   if (currentTime - startTime1 >= 10000){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         vidas--;
     	break;
   }
 
   input = retornaBotao();
+    
+    if(input == 0){
+      digitalWrite(9, HIGH);
+    }
+    else if(input == 1){
+      digitalWrite(8, HIGH);
+    }
 
   if(input != respostas[index] && input != 3){
     lcd.clear();
     lcd.print("Erro");
+    tone(bzz, erro);
     delay(2000);
-    tone(bzz, 136);
-    delay(2000);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
     noTone(bzz);
     lcd.clear();
     derrota();
@@ -154,8 +168,10 @@ void loop()
   else if(input == respostas[index]){
     lcd.clear();
     lcd.print("Acerto");
-    tone(bzz, 262);
+    tone(bzz, acerto);
     delay(2000);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
     noTone(bzz);
     lcd.clear();
     break;
@@ -173,14 +189,16 @@ void loop()
     unsigned long currentTime = millis(); 
 
     if (currentTime - startTime2 >= 7500){
-      tone(bzz, 136);
+      tone(bzz, tempo_quase_esgotado);
   }
   
   if (currentTime - startTime2 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         derrota();
     	break;
@@ -190,19 +208,30 @@ void loop()
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         vidas--;
     	break;
   }
      
     input = retornaBotao();
+    
+    if(input == 0){
+      digitalWrite(9, HIGH);
+    }
+    else if(input == 1){
+      digitalWrite(8, HIGH);
+    }
 
     if(input == respostas[index+1]){
       lcd.clear();
       lcd.print("Acerto");
-      tone(bzz, 262);
+      tone(bzz, acerto);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
       break;
@@ -210,9 +239,11 @@ void loop()
     else if(input != respostas[index+1] && input != 3){
       lcd.clear();
       lcd.print("Erro");
-      tone(bzz, 136);
-      noTone(bzz);
+      tone(bzz, erro);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
+      noTone(bzz);
       lcd.clear();
       derrota();
     }
@@ -229,14 +260,16 @@ void loop()
     unsigned long currentTime = millis(); 
 
     if (currentTime - startTime3 >= 7500){
-      tone(bzz, 136);
+      tone(bzz, tempo_quase_esgotado);
   }
   
   if (currentTime - startTime3 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         derrota();
     	break;
@@ -246,29 +279,42 @@ void loop()
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         vidas--;
     	break;
   }
     
   	input = retornaBotao();
+    
+    if(input == 0){
+      digitalWrite(9, HIGH);
+    }
+    else if(input == 1){
+      digitalWrite(8, HIGH);
+    }
 
     if(input == respostas[index+2]){
       lcd.clear();
       lcd.print("Acerto");
-      tone(bzz, 262);
-      noTone(bzz);
+      tone(bzz, acerto);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
+      noTone(bzz);
       lcd.clear();
       break;
     }
     else if(input != respostas[index+2] && input != 3){
       lcd.clear();
       lcd.print("Erro");
-      tone(bzz, 136);
-      noTone(bzz);
+      tone(bzz, erro);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
+      noTone(bzz);
       lcd.clear();
       derrota();
     }
@@ -285,14 +331,16 @@ void loop()
     unsigned long currentTime = millis(); 
 
     if (currentTime - startTime4 >= 7500){
-      tone(bzz, 136);
+      tone(bzz, tempo_quase_esgotado);
   }
   
   if (currentTime - startTime4 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         derrota();
     	break;
@@ -302,19 +350,30 @@ void loop()
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         vidas--;
     	break;
   }
    
     input = retornaBotao();
+    
+    if(input == 0){
+      digitalWrite(9, HIGH);
+    }
+    else if(input == 1){
+      digitalWrite(8, HIGH);
+    }
 
     if(input == respostas[index+3]){
       lcd.clear();
       lcd.print("Acerto");
-      tone(bzz, 262);
+      tone(bzz, acerto);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
       break;
@@ -322,8 +381,10 @@ void loop()
     else if(input != respostas[index+3] && input != 3){
       lcd.clear();
       lcd.print("Erro");
-      tone(bzz, 136);
+      tone(bzz, erro);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
       derrota();
@@ -340,14 +401,16 @@ void loop()
   while(true){
   unsigned long currentTime = millis(); 
     if (currentTime - startTime5 >= 7500){
-      tone(bzz, 136);
+      tone(bzz, tempo_quase_esgotado);
   }
   
   if (currentTime - startTime5 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         derrota();
     	break;
@@ -357,7 +420,9 @@ void loop()
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         vidas--;
     	break;
@@ -365,12 +430,21 @@ void loop()
    
     
     input = retornaBotao();
+    
+    if(input == 0){
+      digitalWrite(9, HIGH);
+    }
+    else if(input == 1){
+      digitalWrite(8, HIGH);
+    }
 
     if(input == respostas[index+4]){
       lcd.clear();
       lcd.print("Acerto");
-      tone(bzz, 262);
+      tone(bzz, acerto);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
       break;
@@ -378,8 +452,10 @@ void loop()
     else if (input!= respostas[index+4] && input != 3){
       lcd.clear();
       lcd.print("Erro");
-      tone(bzz, 136);
+      tone(bzz, erro);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
       derrota();
@@ -395,14 +471,16 @@ void loop()
   while(true){
    unsigned long currentTime = millis(); 
     if (currentTime - startTime6 >= 7500){
-      tone(bzz, 136);
+      tone(bzz, tempo_quase_esgotado);
   }
   
   if (currentTime - startTime6 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         derrota();
     	break;
@@ -412,19 +490,30 @@ void loop()
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         vidas--;
     	break;
   }
    
     input = retornaBotao();
+    
+    if(input == 0){
+      digitalWrite(9, HIGH);
+    }
+    else if(input == 1){
+      digitalWrite(8, HIGH);
+    }
 
     if(input != respostas[index+5] && input != 3){
       lcd.clear();
       lcd.print("Erro");
-      tone(bzz, 136);
+      tone(bzz, erro);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
       derrota();
@@ -432,8 +521,10 @@ void loop()
     else if(input == respostas[index+5]){
       lcd.clear();
       lcd.print("Acerto");
-      tone(bzz, 262);
+      tone(bzz, acerto);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
       break;
@@ -449,14 +540,16 @@ void loop()
   while(true){
     unsigned long currentTime = millis(); 
     if (currentTime - startTime7 >= 7500){
-      tone(bzz, 136);
+      tone(bzz, tempo_quase_esgotado);
   }
   
   if (currentTime - startTime7 >= 10000 && vidas == 0){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         derrota();
     	break;
@@ -466,7 +559,9 @@ void loop()
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         vidas--;
     	break;
@@ -474,11 +569,20 @@ void loop()
    
     input = retornaBotao();
     
+    if(input == 0){
+      digitalWrite(9, HIGH);
+    }
+    else if(input == 1){
+      digitalWrite(8, HIGH);
+    }
+    
     if(input != respostas[index+6] && input != 3){
       lcd.clear();
       lcd.print("Erro");
-      tone(bzz, 136);
+      tone(bzz, erro);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
       derrota();
@@ -486,8 +590,10 @@ void loop()
     else if(input == respostas[index+6]){
       lcd.clear();
       lcd.print("Acerto");
-      tone(bzz, 262);
+      tone(bzz, acerto);
 	  delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
       break;
@@ -507,14 +613,16 @@ void loop()
   while(true){
     unsigned long currentTime = millis(); 
     if (currentTime - startTime8 >= 7500){
-      tone(bzz, 136);
+      tone(bzz, tempo_quase_esgotado);
   }
   
   if (currentTime - startTime8 >= 10000){
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
         delay(2000);
+    	noTone(bzz);
         lcd.clear();
         derrota();
     	break;
@@ -523,10 +631,19 @@ void loop()
     input = retornaBotao();
     
     if(input == 0){
+      digitalWrite(9, HIGH);
+    }
+    else if(input == 1){
+      digitalWrite(8, HIGH);
+    }
+    
+    if(input == 0){
       lcd.clear();
       lcd.print("Acerto");
-      tone(bzz, 262);
+      tone(bzz, acerto);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
       vitoria();
@@ -534,8 +651,10 @@ void loop()
     else if(input == 1){
       lcd.clear();
       lcd.print("Erro");
-      tone(bzz, 136);
+      tone(bzz, erro);
       delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
       derrota();
@@ -571,6 +690,7 @@ void quit(){
   jogoIniciado = 0;
   lcd.setCursor(0,0);
   lcd.print("Voce desistiu do jogo!");
+  tone(bzz, 200);
   delay(2000);
   lcd.clear();
 }
