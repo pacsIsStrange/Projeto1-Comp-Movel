@@ -70,50 +70,22 @@ int quit_buzzer = 215;
 
 void loop()
 {
-  
-  /*do{
+  lcd.print("APERTE START");
+  lcd.setCursor(0, 1);
+  lcd.print("PARA INICIAR");
+  do{
     input = retornaBotao();
-    Serial.println(input);
+    //Serial.println(input);
   } while (input != 2);
+  
   lcd.clear();
-  delay(100);
-  while(1){
-    if(!jogoIniciado){
-      jogoIniciado = 1;
-      contRodadas = 0;
-      iniSeq();    
-    }
-    for (int i = 0; i <= rodadas; i++){
-      for (int k = 0; k <= i; k++){
-      	digitalWrite(arrLed[sequencia[k]], HIGH);
-        delay(100);
-        digitalWrite(arrLed[sequencia[k]], LOW);
-        delay(30);
-      }
-      while(true){
-        input = retornaBotao();
-        if (input < 3 and input != 2){
-          digitalWrite(arrLed[input], HIGH);
+  lcd.print("JOGO INICIADO!!");
+  delay(400);
 
-          if(input == sequencia[i]){
-            tone(bzz, acerto);
-            lcd.setCursor(0, 0);
-            lcd.print("Acerto");
-            break;
-          } else{
-            tone(bzz, erro);
-            lcd.setCursor(0, 0);
-            lcd.print("Erro!");
-            
-          }
-          
-        } else if(input == 2){quit(); break;}
-      }
-    }
-    contRodadas++;
-    if (contRodadas >= rodadas)
-      vitoria();
-  }*/
+  memoria();
+  
+
+  /*
   	lcd.print("Fase 2");
   	delay(2000);
   	lcd.clear();
@@ -716,9 +688,49 @@ void loop()
       quit();
       RESET;
     }
+  }*/
+}
+
+void memoria(){
+  while(true){
+    for (int i = 0; i <= contRodadas; i++){
+      digitalWrite(arrLed[i], HIGH);
+      delay(400);
+      digitalWrite(arrLed[i], LOW);
+      delay(150);
+    }
+
+    for (int i = 0; i <= contRodadas; i++){
+      Serial.println(i);
+      while(true){
+        input = retornaBotao();
+        if (input < 2){
+          digitalWrite(arrLed[input], HIGH);
+
+          if (input == sequencia[i]){
+            tone(bzz, 262);
+            delay(250);
+            digitalWrite(arrLed[input], LOW);
+            noTone(bzz);
+            break;
+          } else {
+            derrota(); 
+            digitalWrite(arrLed[input], LOW);
+            break;
+          }
+        }
+      }
+    }
+    contRodadas = contRodadas + 1;
+    if (contRodadas >= rodadas){
+      vitoria();
+      break;
+    }
+    delay(800);
   }
 }
-  
+
+
 int retornaBotao(){
   if (digitalRead(btVerde) == LOW)
     return 0;
@@ -739,7 +751,7 @@ void vitoria(){
 void derrota(){
   lcd.clear();
   lcd.print("Voce perdeu");
-  delay(2000);
+  delay(1000);
   RESET;
 }
 
