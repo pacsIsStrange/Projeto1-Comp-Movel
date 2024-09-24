@@ -18,7 +18,6 @@ int btStart = 13;
 int bzz = 10;
 int rodadas = 5;
 int contRodadas = 0;
-int sequencia[5];
 int jogoIniciado = 0;
 int ledVerde = 9;
 int ledVermelho = 8;
@@ -28,6 +27,7 @@ int tamanho_array = 14;
 int caracter = 50;
 Perguntas listaPerguntas[15];
 int respostas[14] = {1,0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1};
+int sequencia[19] = {0,1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0};
 int erro = 136;
 int acerto = 262;
 int tempo_quase_esgotado = 235;
@@ -50,7 +50,6 @@ int quit_buzzer = 215;
   listaPerguntas[11].pergunta =	"435 eh primo?";
   listaPerguntas[12].pergunta = "553 eh primo?";
   listaPerguntas[13].pergunta = "28 x 5 = 160?";
-  listaPerguntas[14].pergunta = "28 x 5 = 160?";
   
 
   lcd.begin(16, 2);
@@ -70,50 +69,22 @@ int quit_buzzer = 215;
 
 void loop()
 {
-  
-  /*do{
+  lcd.print("APERTE START");
+  lcd.setCursor(0, 1);
+  lcd.print("PARA INICIAR");
+  do{
     input = retornaBotao();
-    Serial.println(input);
+    //Serial.println(input);
   } while (input != 2);
+  
   lcd.clear();
-  delay(100);
-  while(1){
-    if(!jogoIniciado){
-      jogoIniciado = 1;
-      contRodadas = 0;
-      iniSeq();    
-    }
-    for (int i = 0; i <= rodadas; i++){
-      for (int k = 0; k <= i; k++){
-      	digitalWrite(arrLed[sequencia[k]], HIGH);
-        delay(100);
-        digitalWrite(arrLed[sequencia[k]], LOW);
-        delay(30);
-      }
-      while(true){
-        input = retornaBotao();
-        if (input < 3 and input != 2){
-          digitalWrite(arrLed[input], HIGH);
+  lcd.print("JOGO INICIADO!!");
+  delay(400);
 
-          if(input == sequencia[i]){
-            tone(bzz, acerto);
-            lcd.setCursor(0, 0);
-            lcd.print("Acerto");
-            break;
-          } else{
-            tone(bzz, erro);
-            lcd.setCursor(0, 0);
-            lcd.print("Erro!");
-            
-          }
-          
-        } else if(input == 2){quit(); break;}
-      }
-    }
-    contRodadas++;
-    if (contRodadas >= rodadas)
-      vitoria();
-  }*/
+  memoria();
+  
+
+  
   	lcd.print("Fase 2");
   	delay(2000);
   	lcd.clear();
@@ -773,7 +744,82 @@ void loop()
     }
   }
 }
-  
+
+void memoria(){
+  int cont = 0;
+  int index_memoria = random(0, 10);
+  int acerto = 0;
+    for (int k = index_memoria; k < 15; k++){
+      if(sequencia[k] == 0){
+      	digitalWrite(9, HIGH);
+        delay(1000);
+        digitalWrite(9, LOW);
+		delay(500);
+        }
+        else if(sequencia[k] == 1){
+        digitalWrite(8, LOW);
+        digitalWrite(8, HIGH);
+        delay(1000);
+        digitalWrite(8, LOW);
+        delay(500);
+        }
+      cont++;
+      //Serial.println(cont);
+      if(cont == 10){
+        break;
+      }
+    }
+
+   
+      //Serial.println(i);
+  	for (int i = index_memoria; i <= 15; i++){
+      int cont2 = 0;
+      while(true){
+        input = retornaBotao();
+        if (input == 0){
+          digitalWrite(9, HIGH);
+        }
+        else if(input == 1){
+          digitalWrite(8, HIGH);
+        }
+       
+			
+          if (input == sequencia[i]){
+         
+            i++;
+            acerto++;
+            Serial.println(i);
+            //Serial.println(acerto);
+            tone(bzz, acerto);
+            delay(250);
+            digitalWrite(9, LOW);
+            digitalWrite(8, LOW);
+            noTone(bzz);
+            if (acerto == 10){
+              cont2++;
+              break;
+            }
+            
+          } else if(input != sequencia[i] && input != 3) {
+            tone(bzz, erro);
+            delay(250);
+            noTone(bzz);
+            derrota(); 
+            break;
+          }
+      }
+      if(cont2 == 1){
+        break;
+      }
+  }
+  lcd.clear();
+  lcd.print("Voce ganhou");
+  delay(3000);
+  lcd.clear();
+}
+
+
+
 int retornaBotao(){
   if (digitalRead(btVerde) == LOW)
     return 0;
@@ -788,13 +834,15 @@ void vitoria(){
   jogoIniciado = false;
   lcd.setCursor(0, 0);
   lcd.print("Voce venceu!");
+  delay(10000);
+  RESET;
 }
 
 
 void derrota(){
   lcd.clear();
   lcd.print("Voce perdeu");
-  delay(2000);
+  delay(1000);
   RESET;
 }
 
