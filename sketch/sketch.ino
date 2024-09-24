@@ -3,8 +3,7 @@
 
 int seconds = 0;
 
-//pronto, agr so precisa fzr um array do tipo "Perguntas"
-  //ai cada indice vai ter uma pergunta
+
 typedef struct{
   char* pergunta;
 }Perguntas;
@@ -61,8 +60,7 @@ int quit_buzzer = 215;
   pinMode(ledVermelho, OUTPUT);
   pinMode(bzz, OUTPUT);
   randomSeed(analogRead(0));
-   //Print a message to the LCD.
-  //lcd.print("Aperte o botao para iniciar!");
+   
 }
 
 
