@@ -119,16 +119,28 @@ void loop()
   	lcd.clear();
   	int index = random(0, 8);
   	int vidas = 1;
+  	int tempo;
   	lcd.print(listaPerguntas[index].pergunta);
   	delay(4000);
   	lcd.clear();
   	delay(500);
-  	lcd.print("Sim ou Nao?");
+  	
   	
   	unsigned long startTime1 = millis();
   while(true){
   
-  unsigned long currentTime = millis(); 
+  
+  unsigned long currentTime = millis();
+  lcd.setCursor(0, 1);
+  lcd.clear();
+  lcd.print("Sim ou Nao");
+  lcd.setCursor(0,1);
+  tempo = ((currentTime/1000) -9);
+  lcd.print("Tempo:");
+  lcd.print(7 - tempo);
+  
+  delay(100);
+  
     
   if (currentTime - startTime1 >= 7500){
       tone(bzz, tempo_quase_esgotado);
