@@ -135,9 +135,9 @@ void loop()
   lcd.clear();
   lcd.print("Sim ou Nao");
   lcd.setCursor(0,1);
-  tempo = ((currentTime/1000) -9);
+  tempo = ((currentTime - startTime1)/1000);
   lcd.print("Tempo:");
-  lcd.print(7 - tempo);
+  lcd.print(10 - tempo);
   
   delay(100);
   
@@ -202,12 +202,18 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
-  	lcd.print("Sim ou Nao?");
   	unsigned long startTime2 = millis();
 
   while(true){
     
     unsigned long currentTime = millis(); 
+    lcd.clear();
+    lcd.print("Sim ou Nao");
+    lcd.setCursor(0,1);
+    tempo = ((currentTime - startTime2)/1000);
+    lcd.print("Tempo:");
+    lcd.print(10 - tempo);
+    delay(100);
 
     if (currentTime - startTime2 >= 7500){
       tone(bzz, tempo_quase_esgotado);
@@ -282,11 +288,18 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
-    lcd.print("Sim ou Nao?");
   	unsigned long startTime3 = millis();
   
   while(true){
-    unsigned long currentTime = millis(); 
+    unsigned long currentTime = millis();
+    lcd.clear();
+    lcd.print("Sim ou Nao");
+    lcd.setCursor(0,1);
+    tempo = ((currentTime - startTime3)/1000);
+    lcd.print("Tempo:");
+    lcd.print(10 - tempo);
+    delay(100);
+
 
     if (currentTime - startTime3 >= 7500){
       tone(bzz, tempo_quase_esgotado);
@@ -361,11 +374,17 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
- 	lcd.print("Sim ou Nao?");
   	unsigned long startTime4 = millis();
   
   while(true){
-    unsigned long currentTime = millis(); 
+    unsigned long currentTime = millis();
+    lcd.clear();
+    lcd.print("Sim ou Nao");
+    lcd.setCursor(0,1);
+    tempo = ((currentTime - startTime4)/1000);
+    lcd.print("Tempo:");
+    lcd.print(10 - tempo);
+    delay(100);
 
     if (currentTime - startTime4 >= 7500){
       tone(bzz, tempo_quase_esgotado);
@@ -440,11 +459,17 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
-  	lcd.print("Sim ou Nao?");
   	unsigned long startTime5 = millis();
   
   while(true){
   unsigned long currentTime = millis(); 
+    lcd.clear();
+    lcd.print("Sim ou Nao");
+    lcd.setCursor(0,1);
+    tempo = ((currentTime - startTime5)/1000);
+    lcd.print("Tempo:");
+    lcd.print(10 - tempo);
+    delay(100);
     if (currentTime - startTime5 >= 7500){
       tone(bzz, tempo_quase_esgotado);
   }
@@ -518,11 +543,17 @@ void loop()
     delay(4000);
   	lcd.clear();
   	delay(500);
-  	lcd.print("Sim ou Nao?");
   	unsigned long startTime6 = millis();
   	
   while(true){
    unsigned long currentTime = millis(); 
+    lcd.clear();
+    lcd.print("Sim ou Nao");
+    lcd.setCursor(0,1);
+    tempo = ((currentTime - startTime6)/1000);
+    lcd.print("Tempo:");
+    lcd.print(10 - tempo);
+    delay(100);
     if (currentTime - startTime6 >= 7500){
       tone(bzz, tempo_quase_esgotado);
   }
@@ -595,11 +626,17 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
-  	lcd.print("Sim ou Nao?");
   	unsigned long startTime7 = millis();
   
   while(true){
     unsigned long currentTime = millis(); 
+    lcd.clear();
+    lcd.print("Sim ou Nao");
+    lcd.setCursor(0,1);
+    tempo = ((currentTime - startTime7)/1000);
+    lcd.print("Tempo:");
+    lcd.print(10 - tempo);
+    delay(100);
     if (currentTime - startTime7 >= 7500){
       tone(bzz, tempo_quase_esgotado);
   }
@@ -672,11 +709,17 @@ void loop()
   	delay(4000);
   	lcd.clear();
   	delay(500);
-  	lcd.print("Sim ou Nao?");
   	unsigned long startTime8 = millis();
   
   while(true){
     unsigned long currentTime = millis(); 
+    lcd.clear();
+    lcd.print("Sim ou Nao");
+    lcd.setCursor(0,1);
+    tempo = ((currentTime - startTime8)/1000);
+    lcd.print("Tempo:");
+    lcd.print(10 - tempo);
+    delay(100);
     if (currentTime - startTime8 >= 7500){
       tone(bzz, tempo_quase_esgotado);
   }
