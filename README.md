@@ -16,7 +16,7 @@ Além de poder ser implementado no Arduíno UNO, deixamos também um link com o 
 
 [LINK DO PROJETO NO TINKERCAD](https://www.tinkercad.com/things/daBGwtuhZFQ-projeto-1/editel?sharecode=6JyAtBr4nV1n0gE9bmHrp2lm3OQVEnqkpkbPvpzJql0)
 
-English:
+# English:
  
 The first project of mobile computing consists in a simple game of 3 levels that can be implemented on an Arduino UNO, exploring the concepts of embedded computing we have seen during the course.
 The circuit can be built with 1 breadbord, 3 buttons (1 Start/Reset button and 2 buttons that turn on the LEDs), 1 red LED, 1 green LED, 3 resistors, 1 buzzer, 1 LCD Display 16x2 and 1 potenciometer, alongside of the Arduino UNO itself.
