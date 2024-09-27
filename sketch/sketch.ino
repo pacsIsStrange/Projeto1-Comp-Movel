@@ -674,7 +674,7 @@ void loop()
   	delay(3000);
   	lcd.clear();
   	delay(500);
-  	lcd.print("Albertini eh gay?");
+  	lcd.print("9^4 = 6561?");
   	delay(4000);
   	lcd.clear();
   	delay(500);
