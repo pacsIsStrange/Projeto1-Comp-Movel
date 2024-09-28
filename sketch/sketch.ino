@@ -67,7 +67,7 @@ int quit_buzzer = 215;
 
 void loop()
 {
-  /*lcd.print("APERTE START");
+  lcd.print("APERTE START");
   lcd.setCursor(0, 1);
   lcd.print("PARA INICIAR");
   do{
@@ -79,7 +79,7 @@ void loop()
   lcd.print("JOGO INICIADO!!");
   delay(400);
 
-  memoria();*/
+  memoria();
   
 
   
