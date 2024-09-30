@@ -1,6 +1,7 @@
 #include <LiquidCrystal.h>
 #define RESET asm ("jmp (0x0000)")
 
+
 int seconds = 0;
 
 
@@ -11,6 +12,8 @@ typedef struct{
 
 
 LiquidCrystal lcd(12, 11, 7, 6, 5, 4);
+int musica[] = { 262, 196, 196, 220, 196, 0, 247, 262};
+int tempo_musica[] = {4, 8, 8, 4, 4, 4, 4, 4};
 int btVerde = 3;
 int btVermelho = 2;
 int btStart = 13;
@@ -474,7 +477,7 @@ void loop()
         delay(2000);
     	noTone(bzz);
         lcd.clear();
-    	lcd.print("Restam 5");
+    	lcd.print("Restam 2");
     	delay(2000);
     	lcd.clear();
     	delay(1000);
@@ -855,7 +858,13 @@ void vitoria(){
   jogoIniciado = false;
   lcd.setCursor(0, 0);
   lcd.print("Voce venceu!");
-  delay(10000);
+  for (int notas = 0; notas < 8; notas++){
+    //int tempo_notas = 100/tempo_musica[notas];
+    tone(bzz, musica[notas]);
+    delay(1000);
+    noTone(bzz);
+  }
+  delay(7000);
   RESET;
 }
 
