@@ -121,6 +121,10 @@ void loop()
         delay(2000);
     	noTone(bzz);
         lcd.clear();
+    	lcd.print("Restam 6");
+    	delay(2000);
+    	lcd.clear();
+    	delay(1000);
         vidas--;
     	break;
   }
@@ -162,7 +166,7 @@ void loop()
   }
     else if(input == 2){
       quit();
-      RESET;
+      //RESET;
     }
  }
   	lcd.print(listaPerguntas[index+1].pergunta);
@@ -206,6 +210,10 @@ void loop()
         delay(2000);
     	noTone(bzz);
         lcd.clear();
+    	lcd.print("Restam 5");
+    	delay(2000);
+    	lcd.clear();
+    	delay(1000);
         vidas--;
     	break;
   }
@@ -247,7 +255,7 @@ void loop()
     }
     else if(input == 2){
       quit();
-      RESET;
+      //RESET;
     }
   }
   	
@@ -291,6 +299,10 @@ void loop()
         delay(2000);
     	noTone(bzz);
         lcd.clear();
+    	lcd.print("Restam 4");
+    	delay(2000);
+    	lcd.clear();
+    	delay(1000);
         vidas--;
     	break;
   }
@@ -332,7 +344,7 @@ void loop()
     }
     else if(input == 2){
       quit();
-      RESET;
+      //RESET;
     }
   }
   	
@@ -375,6 +387,10 @@ void loop()
         delay(2000);
     	noTone(bzz);
         lcd.clear();
+    	lcd.print("Restam 3");
+    	delay(2000);
+    	lcd.clear();
+    	delay(1000);
         vidas--;
     	break;
   }
@@ -416,7 +432,7 @@ void loop()
     }
     else if(input == 2){
       quit();
-      RESET;
+      //RESET;
     }
   }
   
@@ -458,6 +474,10 @@ void loop()
         delay(2000);
     	noTone(bzz);
         lcd.clear();
+    	lcd.print("Restam 5");
+    	delay(2000);
+    	lcd.clear();
+    	delay(1000);
         vidas--;
     	break;
   }
@@ -500,7 +520,7 @@ void loop()
     }
     else if(input == 2){
       quit();
-      RESET;
+      //RESET;
     }
   }
   	lcd.print(listaPerguntas[index+5].pergunta);
@@ -541,6 +561,10 @@ void loop()
         delay(2000);
     	noTone(bzz);
         lcd.clear();
+    	lcd.print("Resta 1");
+    	delay(2000);
+    	lcd.clear();
+    	delay(1000);
         vidas--;
     	break;
   }
@@ -582,7 +606,7 @@ void loop()
     }
     else if(input == 2){
       quit();
-      RESET;
+      //RESET;
     }
   }
   	lcd.print(listaPerguntas[index+6].pergunta);
@@ -660,7 +684,7 @@ void loop()
     }
     else if(input == 2){
       quit();
-      RESET;
+      //RESET;
     }
   }
   	lcd.print("PERGUNTA FINAL");
@@ -730,7 +754,7 @@ void loop()
     }
     else if(input == 2){
       quit();
-      RESET;
+      //RESET;
     }
   }
 }
@@ -739,7 +763,7 @@ void memoria(){
   int cont = 0;
   int index_memoria = random(0, 10);
   int acerto = 0;
-    for (int k = index_memoria; k < 15; k++){
+    for (int k = index_memoria; k <= 20; k++){
       if(sequencia[k] == 0){
       	digitalWrite(9, HIGH);
         delay(1000);
@@ -790,13 +814,20 @@ void memoria(){
               break;
             }
             
-          } else if(input != sequencia[i] && input != 3) {
+          } else if(input != sequencia[i] && input != 3 && input != 2) {
             tone(bzz, erro);
             delay(250);
             noTone(bzz);
+            digitalWrite(9, LOW);
+            digitalWrite(8, LOW);
             derrota(); 
             break;
           }
+        else if(input == 2){
+          digitalWrite(9, LOW);
+          digitalWrite(8, LOW);
+          quit();
+        }
       }
       if(cont2 == 1){
         break;
@@ -832,18 +863,20 @@ void vitoria(){
 void derrota(){
   lcd.clear();
   lcd.print("Voce perdeu");
-  delay(1000);
+  delay(3000);
   RESET;
 }
 
 void quit(){
+  lcd.clear();
   jogoIniciado = 0;
   lcd.setCursor(0,0);
   lcd.print("Voce desistiu!");
   tone(bzz, quit_buzzer);
-  delay(2000);
+  delay(3000);
   noTone(bzz);
   lcd.clear();
+  RESET;
 }
 
 void iniSeq(){
