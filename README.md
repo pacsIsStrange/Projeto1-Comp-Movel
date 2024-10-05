@@ -117,12 +117,172 @@ void memoria(){
 Após completar a primeira fase, o jogador é levado à fase de perguntas. Nesta fase, são apresentadas ao jogador 7 perguntas, sorteadas aleatoriamente de um banco de perguntas, no display LCD. O jogador, por sua vez, deve responder as perguntas com Sim ou Não, pressionando o botão do LED verde para sim e o botão do LED vermelho para não. Para cada pergunta, o jogador possui 10 segundos para responder, com o tempo restante sendo mostrado no display. Caso o jogador acerte a resposta, será apresentada outra pergunta no Display, até que se tenham totalizado 7 acertos, o que leva o jogador à fase 3. Caso não responda dentro dos 10 segundos, a questão será considerada como pulada e o jogo apresentará a próxima questão. Caso o jogador volte a não responder qualquer outra questão dentro do tempo, ele perderá a fase de perguntas e será retornado ao início do jogo. Caso o jogador erre alguma pergunta, também perderá a fase de perguntas e será retornado ao início do jogo. 
 
 ``` cpp
+lcd.print("Fase 2");
+  delay(2000);
+  lcd.clear();
+  int index = random(0, 8);
+  int vidas = 1;
+  char tempo_string[200];
+  int tempo;
+  lcd.print(listaPerguntas[index].pergunta);
+  delay(4000);
+  lcd.clear();
+  delay(500);
+  lcd.print("Sim ou Nao?");
+
+  unsigned long startTime1 = millis();
+  while(true){
+  
+  
+  unsigned long currentTime = millis();
+  lcd.setCursor(0,1);
+  int tempo = ((currentTime - startTime1)/1000);
+  sprintf(tempo_string, "Tempo: %02d", 10 - tempo);
+  lcd.print(tempo_string);
+  
+  delay(100);
+  
+    
+  if (currentTime - startTime1 >= 7500){
+      tone(bzz, tempo_quase_esgotado);
+  }
+  
+  if (currentTime - startTime1 >= 10000){
+    	lcd.clear();
+    	noTone(bzz);
+        lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
+        delay(2000);
+    	noTone(bzz);
+        lcd.clear();
+    	lcd.print("Restam 6");
+    	delay(2000);
+    	lcd.clear();
+    	delay(1000);
+        vidas--;
+    	break;
+  }
+
+  input = retornaBotao();
+    
+    if(input == 0){
+      digitalWrite(9, HIGH);
+    }
+    else if(input == 1){
+      digitalWrite(8, HIGH);
+    }
+  // O bloco a seguir se repete para cada uma das perguntas
+  // INÍCIO DO BLOCO
+  if(input != respostas[index] && input != 3 && input != 2){
+    lcd.clear();
+    lcd.print("Erro");
+    tone(bzz, erro);
+    delay(2000);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    noTone(bzz);
+    lcd.clear();
+    derrota();
+  }
+  else if(input == respostas[index]){
+    lcd.clear();
+    lcd.print("Acerto!");
+    tone(bzz, acerto);
+    delay(2000);
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    noTone(bzz);
+    lcd.clear();
+    lcd.print("Restam 6");
+    delay(2000);
+    lcd.clear();
+    delay(1000);
+    break;
+  }
+    else if(input == 2){
+      quit();
+      //RESET;
+    }
+    // FINAL DO BLOCO
+ }
+  
+  	
 ```
 
 #### Fase 3 - Pergunta Final
 A fase 3 funciona da mesma maneira que a fase 2, o jogador é apresentado com uma pergunta final no Display LCD e deve responder com Sim ou Não dentro de 10 segundos. Caso o jogador não responda a pergunta final dentro dos 10 segundos, perderá a fase 3 e será retornado ao início do jogo, o mesmo valendo para caso o jogador erre a resposta. Por fim, caso o jogador acerte a resposta, terá vencido o jogo e uma mensagem de vitória será apresentada no Display LCD, juntamente com uma música de vitória tocada pelo Buzzer.
 
-[INSERIR CÓDIGO DA FASE 3]
+``` cpp
+lcd.print("PERGUNTA FINAL");
+  	delay(3000);
+  	lcd.clear();
+  	delay(500);
+  	lcd.print("9^4 = 6561?");
+  	delay(4000);
+  	lcd.clear();
+  	delay(500);
+  	lcd.print("Sim ou Nao?");
+  	unsigned long startTime8 = millis();
+  
+  while(true){
+    unsigned long currentTime = millis(); 
+    lcd.setCursor(0,1);
+    tempo = ((currentTime - startTime8)/1000);
+    sprintf(tempo_string, "Tempo: %02d", 10 - tempo);
+    lcd.print(tempo_string);
+    delay(100);
+    if (currentTime - startTime8 >= 7500){
+      tone(bzz, tempo_quase_esgotado);
+  }
+  
+  if (currentTime - startTime8 >= 10000){
+    	lcd.clear();
+    	noTone(bzz);
+        lcd.print("Tempo Esgotado");
+        tone(bzz, tempo_esgotado);
+        delay(2000);
+    	noTone(bzz);
+        lcd.clear();
+        derrota();
+    	break;
+  }
+   
+    input = retornaBotao();
+    
+    if(input == 0){
+      digitalWrite(9, HIGH);
+     }
+    else if(input == 1){
+      digitalWrite(8, HIGH);
+    }
+    
+    if(input == 0){
+      lcd.clear();
+      lcd.print("Acerto");
+      tone(bzz, acerto);
+      delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
+      noTone(bzz);
+      lcd.clear();
+      vitoria();
+    }
+    else if(input == 1){
+      lcd.clear();
+      lcd.print("Erro");
+      tone(bzz, erro);
+      delay(2000);
+      digitalWrite(9, LOW);
+      digitalWrite(8, LOW);
+      noTone(bzz);
+      lcd.clear();
+      derrota();
+    }
+    else if(input == 2){
+      quit();
+      //RESET;
+    }
+```
 
 #### Mais detalhes:
 Caso o botão de Start/Reset seja apertado com o jogo já em andamento, será considerado como desistência por parte do jogador e ele será retornado ao início do jogo.
