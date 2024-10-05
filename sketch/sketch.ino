@@ -768,16 +768,16 @@ void memoria(){
   int acerto = 0;
     for (int k = index_memoria; k <= 20; k++){
       if(sequencia[k] == 0){
-      	digitalWrite(9, HIGH);
+      	digitalWrite(ledVerde, HIGH);
         delay(1000);
-        digitalWrite(9, LOW);
+        digitalWrite(ledVerde, LOW);
 		delay(500);
         }
         else if(sequencia[k] == 1){
-        digitalWrite(8, LOW);
-        digitalWrite(8, HIGH);
+        digitalWrite(ledVermelho, LOW);
+        digitalWrite(ledVermelho, HIGH);
         delay(1000);
-        digitalWrite(8, LOW);
+        digitalWrite(ledVermelho, LOW);
         delay(500);
         }
       cont++;
@@ -794,10 +794,10 @@ void memoria(){
       while(true){
         input = retornaBotao();
         if (input == 0){
-          digitalWrite(9, HIGH);
+          digitalWrite(ledVerde, HIGH);
         }
         else if(input == 1){
-          digitalWrite(8, HIGH);
+          digitalWrite(ledVermelho, HIGH);
         }
        
 			
@@ -809,8 +809,8 @@ void memoria(){
             //Serial.println(acerto);
             tone(bzz, acerto);
             delay(250);
-            digitalWrite(9, LOW);
-            digitalWrite(8, LOW);
+            digitalWrite(ledVerde, LOW);
+            digitalWrite(ledVermelho, LOW);
             noTone(bzz);
             if (acerto == 10){
               cont2++;
@@ -821,14 +821,14 @@ void memoria(){
             tone(bzz, erro);
             delay(250);
             noTone(bzz);
-            digitalWrite(9, LOW);
-            digitalWrite(8, LOW);
+            digitalWrite(ledVerde, LOW);
+            digitalWrite(ledVermelho, LOW);
             derrota(); 
             break;
           }
         else if(input == 2){
-          digitalWrite(9, LOW);
-          digitalWrite(8, LOW);
+          digitalWrite(ledVerde, LOW);
+          digitalWrite(ledVermelho, LOW);
           quit();
         }
       }
@@ -838,7 +838,7 @@ void memoria(){
   }
   lcd.clear();
   lcd.print("Voce ganhou");
-  delay(3000);
+  delay(15000);
   lcd.clear();
 }
 
