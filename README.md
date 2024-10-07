@@ -295,7 +295,11 @@ Além de poder ser implementado no Arduíno UNO, deixamos também um link com o 
 
 As fotos abaixo ilustram o circuito montado e o jogo funcionando:
 
-[INSERIR IMAGENS DO JOGO FUNCIONANDO]
+![image](https://github.com/user-attachments/assets/058b2c4f-5d1c-4a6a-8af1-fa32235165fa)
+
+![image](https://github.com/user-attachments/assets/a6bc0a13-104b-4951-b806-3235a9608fa7)
+
+
 
 ## Conclusão
 
