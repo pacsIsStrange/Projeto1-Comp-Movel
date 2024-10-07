@@ -117,90 +117,90 @@ void memoria(){
 Após completar a primeira fase, o jogador é levado à fase de perguntas. Nesta fase, são apresentadas ao jogador 7 perguntas, sorteadas aleatoriamente de um banco de perguntas, no display LCD. O jogador, por sua vez, deve responder as perguntas com Sim ou Não, pressionando o botão do LED verde para sim e o botão do LED vermelho para não. Para cada pergunta, o jogador possui 10 segundos para responder, com o tempo restante sendo mostrado no display. Caso o jogador acerte a resposta, será apresentada outra pergunta no Display, até que se tenham totalizado 7 acertos, o que leva o jogador à fase 3. Caso não responda dentro dos 10 segundos, a questão será considerada como pulada e o jogo apresentará a próxima questão. Caso o jogador volte a não responder qualquer outra questão dentro do tempo, ele perderá a fase de perguntas e será retornado ao início do jogo. Caso o jogador erre alguma pergunta, também perderá a fase de perguntas e será retornado ao início do jogo. 
 
 ``` cpp
-lcd.print("Fase 2");
+  lcd.print("Fase 2"); //Print que indica o início da fase 2
   delay(2000);
   lcd.clear();
-  int index = random(0, 8);
-  int vidas = 1;
-  char tempo_string[200];
+  int index = random(0, 8); //Sorteia randomicamente um número entre 0 e 7
+  int vidas = 1; //Numero de vidas do jogador
+  char tempo_string[200]; //Preparação da string para utilizar no sprintf de maneira formatada
   int tempo;
-  lcd.print(listaPerguntas[index].pergunta);
+  lcd.print(listaPerguntas[index].pergunta); //Print da pergunta no Display LCD
   delay(4000);
   lcd.clear();
   delay(500);
-  lcd.print("Sim ou Nao?");
+  lcd.print("Sim ou Nao?"); //Print que indica como o jogador deve responder
 
-  unsigned long startTime1 = millis();
+  unsigned long startTime1 = millis(); //Função que guarda o tempo inicial antes de entrar no loop
   while(true){
   
   
-  unsigned long currentTime = millis();
-  lcd.setCursor(0,1);
-  int tempo = ((currentTime - startTime1)/1000);
-  sprintf(tempo_string, "Tempo: %02d", 10 - tempo);
+  unsigned long currentTime = millis(); //Função que guarda o tempo atual de execução do loop
+  lcd.setCursor(0,1); //Posicionamento do print no LCD
+  int tempo = ((currentTime - startTime1)/1000); //Calculo do tempo atual em segundos
+  sprintf(tempo_string, "Tempo: %02d", 10 - tempo); //Print do tempo restante no LCD
   lcd.print(tempo_string);
   
   delay(100);
   
     
   if (currentTime - startTime1 >= 7500){
-      tone(bzz, tempo_quase_esgotado);
+      tone(bzz, tempo_quase_esgotado); //Laço que calcula se o tempo está quase se esgotando e emite um buzzer
   }
   
-  if (currentTime - startTime1 >= 10000){
+  if (currentTime - startTime1 >= 10000){ //Laço que calcula se o tempo se encerrou e emite um buzzer
     	lcd.clear();
-    	noTone(bzz);
+    	noTone(bzz); //Função que cancela o buzzer anterior
         lcd.print("Tempo Esgotado");
         tone(bzz, tempo_esgotado);
         delay(2000);
     	noTone(bzz);
         lcd.clear();
-    	lcd.print("Restam 6");
+    	lcd.print("Restam 6"); //Print que informa o usuário quantas questões restam
     	delay(2000);
     	lcd.clear();
     	delay(1000);
-        vidas--;
+        vidas--; //Descréscimo de vidas caso o jogador deixe o tempo esgotar
     	break;
   }
 
-  input = retornaBotao();
+  input = retornaBotao(); //Função que obtem o input do usuário por meio de qual botão aperta
     
-    if(input == 0){
+    if(input == 0){ //Laço que acende a luz verde, caso o botão tenha sido pressionado pelo jogador
       digitalWrite(9, HIGH);
     }
-    else if(input == 1){
+    else if(input == 1){ //Laço que acende a luz vermelha, caso o botão tenha sido pressionado pelo jogador
       digitalWrite(8, HIGH);
     }
   // O bloco a seguir se repete para cada uma das perguntas
   // INÍCIO DO BLOCO
-  if(input != respostas[index] && input != 3 && input != 2){
+  if(input != respostas[index] && input != 3 && input != 2){ //Laço que verifica se o usuário errou a resposta e emite um buzzer
     lcd.clear();
     lcd.print("Erro");
     tone(bzz, erro);
     delay(2000);
-    digitalWrite(9, LOW);
-    digitalWrite(8, LOW);
+    digitalWrite(9, LOW); //Apaga as luzes caso estejam acesas
+    digitalWrite(8, LOW); //Apaga as luzes caso estejam acesas
     noTone(bzz);
     lcd.clear();
-    derrota();
+    derrota(); //Encerra o jogo após o jogador ter errado a resposta
   }
-  else if(input == respostas[index]){
+  else if(input == respostas[index]){ //Laço que verifica se o jogador acertou a questão
     lcd.clear();
     lcd.print("Acerto!");
     tone(bzz, acerto);
     delay(2000);
-    digitalWrite(9, LOW);
-    digitalWrite(8, LOW);
+    digitalWrite(9, LOW); //Apaga as luzes caso estejam acesas
+    digitalWrite(8, LOW); //Apaga as luzes caso estejam acesas
     noTone(bzz);
     lcd.clear();
-    lcd.print("Restam 6");
+    lcd.print("Restam 6"); //Print que indica ao jogador quantas questões restam
     delay(2000);
     lcd.clear();
     delay(1000);
     break;
   }
-    else if(input == 2){
-      quit();
+    else if(input == 2){ //Laço que verifica se o jogador pressionou o botão de desistir
+      quit(); //Função que reinicia o jogo após o usuário desistir
       //RESET;
     }
     // FINAL DO BLOCO
@@ -213,29 +213,29 @@ lcd.print("Fase 2");
 A fase 3 funciona da mesma maneira que a fase 2, o jogador é apresentado com uma pergunta final no Display LCD e deve responder com Sim ou Não dentro de 10 segundos. Caso o jogador não responda a pergunta final dentro dos 10 segundos, perderá a fase 3 e será retornado ao início do jogo, o mesmo valendo para caso o jogador erre a resposta. Por fim, caso o jogador acerte a resposta, terá vencido o jogo e uma mensagem de vitória será apresentada no Display LCD, juntamente com uma música de vitória tocada pelo Buzzer.
 
 ``` cpp
-lcd.print("PERGUNTA FINAL");
+lcd.print("PERGUNTA FINAL"); //Print que indica a passagem para a fase final
   	delay(3000);
   	lcd.clear();
   	delay(500);
-  	lcd.print("9^4 = 6561?");
+  	lcd.print("9^4 = 6561?"); //Pergunta final
   	delay(4000);
   	lcd.clear();
   	delay(500);
   	lcd.print("Sim ou Nao?");
-  	unsigned long startTime8 = millis();
+  	unsigned long startTime8 = millis(); //Função que guarda o tempo inicial antes de entrar no loop
   
   while(true){
-    unsigned long currentTime = millis(); 
+    unsigned long currentTime = millis(); //Função que guarda o tempo atual de execução do loop
     lcd.setCursor(0,1);
-    tempo = ((currentTime - startTime8)/1000);
-    sprintf(tempo_string, "Tempo: %02d", 10 - tempo);
+    tempo = ((currentTime - startTime8)/1000); //Calcula o tempo atual em segundos
+    sprintf(tempo_string, "Tempo: %02d", 10 - tempo); //Print que mostra o tempo restante para o jogador responder a pergunta
     lcd.print(tempo_string);
     delay(100);
-    if (currentTime - startTime8 >= 7500){
+    if (currentTime - startTime8 >= 7500){ //Laço que calcula se o tempo está quase se esgotando e emite um buzzer
       tone(bzz, tempo_quase_esgotado);
   }
   
-  if (currentTime - startTime8 >= 10000){
+  if (currentTime - startTime8 >= 10000){ //Laço que calcula se o tempo se esgotou e emite um buzzer
     	lcd.clear();
     	noTone(bzz);
         lcd.print("Tempo Esgotado");
@@ -243,20 +243,20 @@ lcd.print("PERGUNTA FINAL");
         delay(2000);
     	noTone(bzz);
         lcd.clear();
-        derrota();
+        derrota(); //Função que encerra o jogo caso o usuário não tenha respondido dentro do tempo
     	break;
   }
    
-    input = retornaBotao();
+    input = retornaBotao(); //Função que obtem o input do usuário por meio de qual botão aperta
     
-    if(input == 0){
+    if(input == 0){ //Laço que acende a luz verde caso o usuário pressione o botão correspondente
       digitalWrite(9, HIGH);
      }
-    else if(input == 1){
+    else if(input == 1){ //Laço que acende a luz vermelha caso o usuário pressione o botão correspondente
       digitalWrite(8, HIGH);
     }
     
-    if(input == 0){
+    if(input == 0){ //Laço que verifica se o usuário acertou a pergunta e emite um buzzer
       lcd.clear();
       lcd.print("Acerto");
       tone(bzz, acerto);
@@ -265,9 +265,9 @@ lcd.print("PERGUNTA FINAL");
       digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
-      vitoria();
+      vitoria(); //Função que encerra o jogo com vitória do usuário caso responda a pergunta corretamente
     }
-    else if(input == 1){
+    else if(input == 1){ //Laço que verifica se o usuário errou a resposta e emite um buzzer
       lcd.clear();
       lcd.print("Erro");
       tone(bzz, erro);
@@ -276,10 +276,10 @@ lcd.print("PERGUNTA FINAL");
       digitalWrite(8, LOW);
       noTone(bzz);
       lcd.clear();
-      derrota();
+      derrota(); //Função que encerra o jogo caso o usuário tenha errado a resposta 
     }
-    else if(input == 2){
-      quit();
+    else if(input == 2){ //Laço que verifica se o jogador apertou o botão de desistir
+      quit(); //Função que reinicia o jogo caso o usuário tenha desistido
       //RESET;
     }
 ```
